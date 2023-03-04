@@ -70,12 +70,15 @@ public class SeaBattle {
     private static void printField(char[][] field, String player) {
         System.out.println("Field of player  " + player + "");
         //       System.out.println(Arrays.deepToString(field));
+        System.out.println("  0 1 2 3 4 5 6 7 8 9");
         for (int i = 0; i < field.length; i++) {
+            System.out.print(i+" ");
             for (int j = 0; j < field[i].length; j++) {
                 System.out.print(field[i][j] + " ");
             }
             System.out.println();
         }
+
 
     }
 
