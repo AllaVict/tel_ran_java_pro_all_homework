@@ -85,14 +85,14 @@ public class SeaBattle {
     private static void startGame(String playerOne, String playerTwo, char[][] fieldOne, char[][] fieldTwo) {
         System.out.println(playerOne + " move first");
         while (true) {
-            makePlayerMove(fieldOne, playerOne); // playerOne делает ход
+            playerMakeStep(fieldOne, playerOne); // playerOne делает ход
             printField(fieldOne, playerOne);
             if (isPlayerWin(fieldOne)) {
                 System.out.println(playerOne + " WIN");
                 break;
             }
             //----------------------------------
-            makePlayerMove(fieldTwo, playerTwo); // playerTwo делает ход
+            playerMakeStep(fieldTwo, playerTwo); // playerTwo делает ход
             printField(fieldTwo, playerTwo);
             if (isPlayerWin(fieldTwo)) {
                 System.out.println(playerTwo + " WIN");
@@ -119,7 +119,7 @@ public class SeaBattle {
         return result;
     }
 
-    private static void makePlayerMove(char[][] field, String player) {
+    private static void playerMakeStep(char[][] field, String player) {
         System.out.println(player + " Enter the coordinates to move, which must be two integers from 0 to " + (FIELD_SIZE - 1) + ", using a space ");
         int x = Integer.parseInt(scanner.next());
         int y = Integer.parseInt(scanner.next());
