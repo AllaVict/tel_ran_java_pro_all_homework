@@ -80,10 +80,6 @@ public class SeaBattle {
     }
 
     private static void startGame(String playerOne, String playerTwo, char[][] fieldOne, char[][] fieldTwo) {
-        // игрок указівает координаті куда вістреливает
-        // проверка на попадание -винести отдельний метод проверки
-        // проверка что все корабли подбиті -> конец "Игри"
-
         System.out.println(playerOne + " move first");
         while (true) {
             makePlayerMove(fieldOne, playerOne); // playerOne делает ход
@@ -124,7 +120,6 @@ public class SeaBattle {
         System.out.println(player + " Enter the coordinates to move, which must be two integers from 0 to " + (FIELD_SIZE - 1) + ", using a space ");
         int x = Integer.parseInt(scanner.next());
         int y = Integer.parseInt(scanner.next());
-        // makePlayerMove проверка заполнена ли поле S + сообщение корабль подпит
         if (field[x][y] == 'S') {
             System.out.println(player + " hit the ship ");
         } else if (field[x][y] == 'o' || field[x][y] == 'X') {
@@ -136,8 +131,6 @@ public class SeaBattle {
 
     private static void fillPlayerField(char[][] field, String player) {
 //        // {countDeck, countShip}
-//        private static final int[][] SHIPS = {{3, 1}, {1, 2}};
-
         for (int i = 0; i < SHIPS.length; i++) { //
             int shipCount = SHIPS[i][1]; //
             for (int j = 0; j < shipCount; j++) {
