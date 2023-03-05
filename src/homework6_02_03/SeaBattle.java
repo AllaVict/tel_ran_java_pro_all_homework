@@ -197,21 +197,41 @@ public class SeaBattle {
     }
 
     private static boolean validationCoordinate(char[][] field, int x, int y, int direction, int shipDeck) {
-        // check field border
         // true  - can make step  // false - cant
         // 1-horizon, 2-vertical
 
         boolean result = false;
         if (direction == 1) { // 1-horizon
             int sumaS = 0;
+            // check field border
             if ((y + shipDeck) > (FIELD_SIZE - 1)) {
-                //       System.out.println("x + shipDeck) > (FIELD_SIZE - 1)  X=" + x + ", Y=" + y + "shipDeck" + shipDeck + "< result false");
+                System.out.println("x + shipDeck) > (FIELD_SIZE - 1)  X=" + x + ", Y=" + y + "shipDeck" + shipDeck + "< result false");
                 result = false;
             } else {
                 for (int k = 0; k < shipDeck; k++) {
+                    // check current cell is empty
                     sumaS = (field[x][y + shipDeck - k - 1] == 'S' ? sumaS + 1 : sumaS);
+                    if (x - 1 >= 0) {
+                        // check next cell is empty
+                        sumaS = (field[x - 1][y + shipDeck - k - 1] == 'S' ? sumaS + 1 : sumaS);
+                    }
+                    if (x + 1 <= 9) {
+                        sumaS = (field[x + 1][y + shipDeck - k - 1] == 'S' ? sumaS + 1 : sumaS);
+                    }
+                    if (y - 1 >= 0 && k == 0 && x - 1 >= 0 && x + 1 <= 9) {
+                        sumaS = (field[x - 1][y - 1] == 'S' ? sumaS + 1 : sumaS);
+                        sumaS = (field[x][y - 1] == 'S' ? sumaS + 1 : sumaS);
+                        sumaS = (field[x + 1][y - 1] == 'S' ? sumaS + 1 : sumaS);
+                    }
+                    if (y + 1 <= 9 && k == (shipDeck - 1) && x - 1 >= 0 && x + 1 <= 9) {
+                        sumaS = (field[x - 1][y + shipDeck - k - 1] == 'S' ? sumaS + 1 : sumaS);
+                        sumaS = (field[x + 0][y + shipDeck - k - 1] == 'S' ? sumaS + 1 : sumaS);
+                        sumaS = (field[x + 1][y + shipDeck - k - 1] == 'S' ? sumaS + 1 : sumaS);
+                    }
+
+
                     result = (sumaS == 0 ? true : false);
-                    //          System.out.println("!!!!!  X=" + x + ", k=" + k + "shipDeck" + shipDeck + ",  sumaS" + sumaS+"result"+result);
+                    System.out.println("!!!!!  X=" + x + ", k=" + k + "shipDeck" + shipDeck + ",  sumaS" + sumaS + "result" + result);
                 }
             }
         }
@@ -219,12 +239,29 @@ public class SeaBattle {
         if (direction == 2) { // 2-vertical
             int sumaS = 0;
             if ((x + shipDeck) > (FIELD_SIZE - 1)) {
-                //     System.out.println("(y + shipDeck) > (FIELD_SIZE - 1)  X=" + x + ", Y=" + y + "shipDeck" + shipDeck + "< result false");
+                //System.out.println("(y + shipDeck) > (FIELD_SIZE - 1)  X=" + x + ", Y=" + y + "shipDeck" + shipDeck + "< result false");
                 result = false;
             } else {
                 for (int l = 0; l < shipDeck; l++) {
                     sumaS = (field[x + shipDeck - l - 1][y] == 'S' ? sumaS + 1 : sumaS);
-                    //            System.out.println("!!!!! y=" + y + ", l=" + l + "shipDeck" + shipDeck + ",  sumaS" + sumaS);
+                    if (y - 1 >= 0) {
+                        sumaS = (field[x + shipDeck - l - 1][y - 1] == 'S' ? sumaS + 1 : sumaS);
+                    }
+                    if (y + 1 <= 9) {
+                        sumaS = (field[x + shipDeck - l - 1][y + 1] == 'S' ? sumaS + 1 : sumaS);
+                    }
+
+                    if (x - 1 >= 0 && l == 0 && y - 1 >= 0 && y + 1 <= 9) {
+                        sumaS = (field[x - 1][y + 1] == 'S' ? sumaS + 1 : sumaS);
+                        sumaS = (field[x - 1][y + 0] == 'S' ? sumaS + 1 : sumaS);
+                        sumaS = (field[x - 1][y - 1] == 'S' ? sumaS + 1 : sumaS);
+                    }
+                    if (x + 1 <= 9 && l == (shipDeck - 1) && y - 1 >= 0 && y + 1 <= 9) {
+                        sumaS = (field[x + shipDeck - l - 1][y - 1] == 'S' ? sumaS + 1 : sumaS);
+                        sumaS = (field[x + shipDeck - l - 1][y + 0] == 'S' ? sumaS + 1 : sumaS);
+                        sumaS = (field[x + shipDeck - l - 1][y + 1] == 'S' ? sumaS + 1 : sumaS);
+                    }
+                    //System.out.println("!!!!! y=" + y + ", l=" + l + "shipDeck" + shipDeck + ",  sumaS" + sumaS);
                     result = (sumaS == 0 ? true : false);
 
                 }
@@ -233,10 +270,12 @@ public class SeaBattle {
 
 
         }
-       //System.out.println("validationCoordinate Last result " + result);
+        //System.out.println("validationCoordinate Last result " + result);
         return result;
 
     }
+
+
 
 
 }
