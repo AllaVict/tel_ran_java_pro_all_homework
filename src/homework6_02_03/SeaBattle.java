@@ -126,7 +126,7 @@ public class SeaBattle {
         int y = Integer.parseInt(scanner.next());
         if (field[x][y] == 'S') {
             System.out.println(player + " hit the ship ");
-        } else if (field[x][y] == 'o' || field[x][y] == '*') {
+        } else if (field[x][y] == '-' || field[x][y] == '*') {
             System.out.println(player + " missed it ");
         }
         field[x][y] = '*';
@@ -220,7 +220,7 @@ public class SeaBattle {
                     }
                     if (y - 1 >= 0 && k == 0 && x - 1 >= 0 && x + 1 <= 9) {
                         sumaS = (field[x - 1][y - 1] == 'S' ? sumaS + 1 : sumaS);
-                        sumaS = (field[x][y - 1] == 'S' ? sumaS + 1 : sumaS);
+                        sumaS = (field[x + 0][y - 1] == 'S' ? sumaS + 1 : sumaS);
                         sumaS = (field[x + 1][y - 1] == 'S' ? sumaS + 1 : sumaS);
                     }
                     if (y + 1 <= 9 && k == (shipDeck - 1) && x - 1 >= 0 && x + 1 <= 9) {
@@ -228,6 +228,7 @@ public class SeaBattle {
                         sumaS = (field[x + 0][y + shipDeck - k - 1] == 'S' ? sumaS + 1 : sumaS);
                         sumaS = (field[x + 1][y + shipDeck - k - 1] == 'S' ? sumaS + 1 : sumaS);
                     }
+                    // y + shipDeck - shipDeck - 1 - 1
 
 
                     result = (sumaS == 0 ? true : false);
