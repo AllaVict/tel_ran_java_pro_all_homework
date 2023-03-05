@@ -205,7 +205,7 @@ public class SeaBattle {
             int sumaS = 0;
             // check field border
             if ((y + shipDeck) > (FIELD_SIZE - 1)) {
-                System.out.println("x + shipDeck) > (FIELD_SIZE - 1)  X=" + x + ", Y=" + y + "shipDeck" + shipDeck + "< result false");
+          //     System.out.println("x + shipDeck) > (FIELD_SIZE - 1)  X=" + x + ", Y=" + y + "shipDeck" + shipDeck + "< result false");
                 result = false;
             } else {
                 for (int k = 0; k < shipDeck; k++) {
@@ -231,7 +231,7 @@ public class SeaBattle {
 
 
                     result = (sumaS == 0 ? true : false);
-                    System.out.println("!!!!!  X=" + x + ", k=" + k + "shipDeck" + shipDeck + ",  sumaS" + sumaS + "result" + result);
+         //           System.out.println("!!!!!  X=" + x + ", k=" + k + "shipDeck" + shipDeck + ",  sumaS" + sumaS + "result" + result);
                 }
             }
         }
