@@ -45,8 +45,8 @@ public class SeaBattle {
 
         char[][] fieldOne = new char[FIELD_SIZE][FIELD_SIZE];
         char[][] fieldTwo = new char[FIELD_SIZE][FIELD_SIZE];
-        fillField(fieldOne, 'o');
-        fillField(fieldTwo, 'o');
+        fillField(fieldOne, '-');
+        fillField(fieldTwo, '-');
 
         // Add ships on field
         fillPlayerField(fieldOne, playerOne);
@@ -70,9 +70,10 @@ public class SeaBattle {
     private static void printField(char[][] field, String player) {
         System.out.println("Field of player  " + player + "");
         //       System.out.println(Arrays.deepToString(field));
-        System.out.println("  0 1 2 3 4 5 6 7 8 9");
+        System.out.println("             Y ");
+        System.out.println("X 0 1 2 3 4 5 6 7 8 9");
         for (int i = 0; i < field.length; i++) {
-            System.out.print(i+" ");
+            System.out.print(i + " ");
             for (int j = 0; j < field[i].length; j++) {
                 System.out.print(field[i][j] + " ");
             }
@@ -120,15 +121,15 @@ public class SeaBattle {
     }
 
     private static void playerMakeStep(char[][] field, String player) {
-        System.out.println(player + " Enter the coordinates to move, which must be two integers from 0 to " + (FIELD_SIZE - 1) + ", using a space ");
+        System.out.println(player + " Enter the coordinates X and Y to move, which must be two integers from 0 to " + (FIELD_SIZE - 1) + ", using a space ");
         int x = Integer.parseInt(scanner.next());
         int y = Integer.parseInt(scanner.next());
         if (field[x][y] == 'S') {
             System.out.println(player + " hit the ship ");
-        } else if (field[x][y] == 'o' || field[x][y] == 'X') {
+        } else if (field[x][y] == 'o' || field[x][y] == '*') {
             System.out.println(player + " missed it ");
         }
-        field[x][y] = 'X';
+        field[x][y] = '*';
 
     }
 
@@ -146,14 +147,12 @@ public class SeaBattle {
                 while (!resultCheck) {
                     // ask first (x,y)
                     // ask direction (1-horizon, 1-vertical)
-                    System.out.println(player + " Enter the coordinate of " + shipCount + " ship(s) with " + shipDeck + " deck(s) " + '\n' +
+                    System.out.println(player + " Enter the coordinate X and Y of " + shipCount + " ship(s) with " + shipDeck + " deck(s) " + '\n' +
                             "coordinate must be two integers from 0 to " + (FIELD_SIZE - 1) + ", using a space ");
                     x = Integer.parseInt(scanner.next());
                     y = Integer.parseInt(scanner.next());
-                    if (shipDeck > 0) {
-                        System.out.println("Enter the direction of ships, which must be integer 1-horizon, 2-vertical");
-                        direction = scanner.nextInt();
-                    }
+                    System.out.println("Enter the direction of ships, which must be integer 1-horizon, 2-vertical");
+                    direction = scanner.nextInt();
 
                     resultCheck = validationCoordinate(field, x, y, direction, shipDeck);
                     if (!resultCheck) {
@@ -162,7 +161,18 @@ public class SeaBattle {
 
                 }
                 // fill field by ship
-                fillByShip(field, shipDeck, x, y, direction);
+
+                if (shipDeck > 0) { // shipDeck=4, 3, 2, 1
+                    if (direction == 1) { // 1- horizon
+                        for (int l = 0; l < shipDeck; l++) {
+                            field[x][y + shipDeck - l - 1] = 'S';
+                        }
+                    } else if (direction == 2) { // 2-vertical
+                        for (int k = 0; k < shipDeck; k++) {
+                            field[x + shipDeck - k - 1][y] = 'S';
+                        }
+                    }
+                }
                 printField(field, player);
 
             }
@@ -188,26 +198,42 @@ public class SeaBattle {
 
     private static boolean validationCoordinate(char[][] field, int x, int y, int direction, int shipDeck) {
         // check field border
-        //true  - S not presents  // false -S presents
-        boolean result = false;
-        int sumaS = 0;
-        if (shipDeck > 0) { // shipDeck=4, 3, 2, 1
-            if (direction == 1) { // 1-vertical
-                for (int k = 0; k < shipDeck; k++) {
-                    sumaS = (field[x + shipDeck - k - 1][y] == 'S' ? sumaS + 1 : sumaS);
-                    //System.out.println(field[i][j] + " sumaS " + sumaS);
-                    result = (sumaS > 0 ? false : true);
-                }
-            } else if (direction == 2) { // 2-horizon
-                for (int l = 0; l < shipDeck; l++) {
-                    sumaS = (field[x][y + shipDeck - l - 1] == 'S' ? sumaS + 1 : sumaS);
-                    result = (sumaS > 0 ? false : true);
-                }
+        // true  - can make step  // false - cant
+        // 1-horizon, 2-vertical
 
+        boolean result = false;
+        if (direction == 1) { // 1-horizon
+            int sumaS = 0;
+            if ((y + shipDeck) > (FIELD_SIZE - 1)) {
+                //       System.out.println("x + shipDeck) > (FIELD_SIZE - 1)  X=" + x + ", Y=" + y + "shipDeck" + shipDeck + "< result false");
+                result = false;
+            } else {
+                for (int k = 0; k < shipDeck; k++) {
+                    sumaS = (field[x][y + shipDeck - k - 1] == 'S' ? sumaS + 1 : sumaS);
+                    result = (sumaS == 0 ? true : false);
+                    //          System.out.println("!!!!!  X=" + x + ", k=" + k + "shipDeck" + shipDeck + ",  sumaS" + sumaS+"result"+result);
+                }
             }
         }
 
-        System.out.println("validationCoordinate Last result " + result);
+        if (direction == 2) { // 2-vertical
+            int sumaS = 0;
+            if ((x + shipDeck) > (FIELD_SIZE - 1)) {
+                //     System.out.println("(y + shipDeck) > (FIELD_SIZE - 1)  X=" + x + ", Y=" + y + "shipDeck" + shipDeck + "< result false");
+                result = false;
+            } else {
+                for (int l = 0; l < shipDeck; l++) {
+                    sumaS = (field[x + shipDeck - l - 1][y] == 'S' ? sumaS + 1 : sumaS);
+                    //            System.out.println("!!!!! y=" + y + ", l=" + l + "shipDeck" + shipDeck + ",  sumaS" + sumaS);
+                    result = (sumaS == 0 ? true : false);
+
+                }
+
+            }
+
+
+        }
+       //System.out.println("validationCoordinate Last result " + result);
         return result;
 
     }
