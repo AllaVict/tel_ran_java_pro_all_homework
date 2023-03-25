@@ -11,7 +11,7 @@ public class MyLinkedListIterator implements ListIterator<Integer> {
         // и помещать первый элемент нашего листа(голову) в текущую переменную.
         curr = list.getHead();
     }
-    //
+
 
     @Override
     public boolean hasNext() {

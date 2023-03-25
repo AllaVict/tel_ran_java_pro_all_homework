@@ -11,7 +11,7 @@ public class MyLinkedIterator implements Iterator<Integer> { // Имплемен
         // и помещать первый элемент нашего листа(голову) в текущую переменную.
         current = list.getHead();
     }
-    //
+
 
     // В интерфейсе Iterator есть нам знакомые методы hasNext И next, надо их надо реализовать
     @Override
