@@ -24,7 +24,7 @@ public class AppList {
 
         System.out.print("myLinkedList before: ");
         myLinkedList.print();
-
+        System.out.println("-----------------");
         System.out.println("-----------------");
         //     1)Добавить элемент по индексу.
         myLinkedList.addOfIndex(1, 17);  //4 2 5 17 3 6 1

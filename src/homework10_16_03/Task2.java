@@ -2,9 +2,7 @@ package homework10_16_03;
 
 import java.util.HashSet;
 import java.util.Set;
-
 public class Task2 {
-
 
 //    Задача 2,надо потерять объект.
 // ***   Создать свой собственный класс, с двумя строковыми полями и одним целочисленным.
@@ -30,7 +28,6 @@ public class Task2 {
         System.out.println("pupilsSet before : \n" + pupilsSet);
 
         two.setFirstName(""); // потеряли обект five
-
 
         if (pupilsSet.contains(two)) {
             System.out.println("All done");
