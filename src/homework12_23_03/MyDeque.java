@@ -1,4 +1,4 @@
-package lesson12_23_03;
+package homework12_23_03;
 
 public interface MyDeque {
 

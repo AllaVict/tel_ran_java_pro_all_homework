@@ -1,4 +1,4 @@
-package lesson12_23_03;
+package homework12_23_03;
 
 public class AppQueue {
     public static void main(String[] args) {
