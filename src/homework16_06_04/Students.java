@@ -1,4 +1,4 @@
-package homwork16_06_04;
+package homework16_06_04;
 
 public class Students {
 
