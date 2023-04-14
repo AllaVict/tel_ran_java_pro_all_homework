@@ -1,11 +1,11 @@
 package homework16_06_04;
 
-public class Students {
+public class Student {
 
     String lastName;
     String firstName;
 
-    public Students(String lastName, String firstName) {
+    public Student(String lastName, String firstName) {
         this.lastName = lastName;
         this.firstName = firstName;
     }

@@ -17,9 +17,9 @@ public class AppSort {
 
         String[][] students = {{"abc", "last"}, {"pklz", "yelp"}, {"rpng", "note"}, {"ppza", "xyz"}, {"rpng", "abs"}};
 
-        List<Students> studentsList = new ArrayList<>();
+        List<Student> studentsList = new ArrayList<>();
         for (int i = 0; i < students.length; i++) {
-            studentsList.add(new Students(students[i][0],students[i][1]));
+            studentsList.add(new Student(students[i][0],students[i][1]));
         }
 
 
